@@ -1,0 +1,26 @@
+
+<% @stories.each do |story| %>
+
+	<div class="story">
+
+		<h2><%= link_to story.title, story.link %></h2>
+		<p><%= story.description%></p>
+
+		<!-- added the brackets for pluralise so that it knows where it starts and ends -->
+		<p><%= link_to pluralize(story.comments.size, "comment"), story_path(story) %></p>
+
+		<p>
+
+			<%= pluralize story.votes.size, "vote" %>
+
+			<%= link_to "Upvote", story_votes_path(story), method: :post %>
+
+		</p>
+
+	</div>
+
+<% end %>
+
+<p>
+	<%= link_to "Add a new story", new_story_path, class: "button" %>
+</p>

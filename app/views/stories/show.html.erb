@@ -1,0 +1,66 @@
+<h2>
+	<%= link_to @story.title, @story.link %>
+</h2>
+
+<p>
+	<%= @story.description %>
+</p>
+
+<!-- Created_at is part of rails and doesn't need to be defined -->
+<p>
+	<%= @story.created_at %>
+</p>
+
+<div class="actions">
+
+	<!-- Creating the voting button -->
+
+	<%= link_to "Vote Up", story_votes_path(@story), method: :post %>
+
+	<%= link_to "Edit", edit_story_path(@story), class: "edit" %>
+
+	<!-- all links are GET by default so we need to use a method to change this to tell the server to delete not get -->
+	<%= link_to "Delete", story_path(@story), method: :delete, 
+
+	data: {confirm:"Are you sure?"}, class: "delete"
+
+	 %>
+
+</div>
+
+<h3>
+
+	<!-- this is looking for how many comments there are on each article -->
+	<!-- we add in pluralize and comment in quotes which will then be pluralized depending on the number -->
+	<%= pluralize @story.comments.size, "comment" %>
+
+	<%= pluralize @story.votes.size, "vote" %>
+</h3>	
+
+<!-- this find the story, then the comments on that story and then looks at each of them.  -->
+<!-- we then want to 'do' something to it -->
+<!-- we can call that action anything but I have called it 'comment' -->
+<% @story.comments.each do |comment| %>
+
+	<div class="comment">
+		<%= simple_format comment.body %>
+
+		<p><%= time_ago_in_words comment.created_at %> ago</p>
+	</div>
+
+<% end %>
+
+<p>
+	<%= link_to "Add a comment", new_story_comment_path(@story) %>
+</p>
+
+
+
+<p><%= link_to "Back to homepage", root_path %></p>
+
+
+
+
+
+
+
