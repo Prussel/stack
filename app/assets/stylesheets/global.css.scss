@@ -309,11 +309,16 @@ span {
   color: $secondaryColour;
 }
 
+/*this is styling the flash messages*/
 .flash {
   color: $secondaryColour;
   padding: 10px 0 0;
   margin-bottom: 10px;
   font-size: 21px;
+}
+
+.error{
+  color:red;
 }
 
 .link-list {

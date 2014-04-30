@@ -10,11 +10,22 @@ class VotesController < ApplicationController
 		# make a new vote on this story
 		@vote = @story.votes.new
 
-		@vote.save
+		# as part of the vote, we want to prefill in the IP address of the user
+		# the user shouldn't be able to fill this themselves, it should be automated
+		@vote.ip_address = request.ip
 
-		flash[:success]= "Thanks for the vote!"
+		if @vote.save
 
-		redirect_to story_path(@story)
+			flash[:success]= "Thanks for the vote!"
+
+		else
+
+			# can pick any word where error is, doesn't mean anythign
+			flash[:error]= "Woops! You've already voted..."
+
+		end
+
+			redirect_to story_path(@story)
 
 	end	
 
